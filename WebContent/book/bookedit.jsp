@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>    
+<%@ taglib prefix="s" uri="/struts-tags" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,19 +14,21 @@
 		font-weight:bold; font-size:1.2em;padding:5px;
 		color:#ff45fe;
 	}
-	caption{font-size=2em;color:red;}
 	input[type='submit']{margin-right:20px;}
 </style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
 <script>
 	 function check(){
-// 		 alert(getE("photo").value);// 不是src
-// 		 alert(getE("booktitle").innerHTML);
 		 if(getE("booktitle").innerHTML=="新增"){
 			 if(getE("photo").value==""){
 				 alert("photo="+getE("photo").src);
 				 return false;
 			 }
 		 }
+	 }
+	 function reset(){
+		 
 	 }
 </script>
 </head>
@@ -67,13 +70,12 @@
 				<td>狀態:</td><td><s:select list="{'normal','display','reserve','collected','obsolete','discard'}" name="book.status" theme="simple" id="status"  /></td>
 				<td></td><td></td>
 			</tr>
-			<tr height="20">　</tr>
+			<tr height="2">　</tr>
 			<tfoot align="right"><tr>
 				<td></td><td></td><td></td>
 				<td>
-					<button type="submit" id="bksubmit">執行</button>
-					<input type="submit" value="執行"/>
-					<input type="reset" value="重填" />
+					<button type="submit" >執行</button>
+					<input type="reset" value="重填" onclick="reset()"/>
 				</td>
 			</tr></tfoot>
 		</table>

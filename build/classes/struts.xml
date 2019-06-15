@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="login" class="org.action.LoginAction">
+			<result name="admin">index.jsp</result>
+			<result name="reader">reader/reader.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="logout" class="org.action.LoginAction" method="logout">
+			<result>/index.jsp</result>
+		</action>
+		<action name="getbook" class="org.action.BookCRUDAction" method="get">
+			<result name="book">/book/book.jsp</result>
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="addbook" class="org.action.BookCRUDAction" method="add">
+			<result name="book">/book/book.jsp</result>
+		</action>
+		<action name="updatebook" class="org.action.BookCRUDAction" method="update">
+			<result name="book">/book/book.jsp</result>
+		</action>
+		<action name="delbook" class="org.action.BookCRUDAction" method="del">
+			<result name="book">/book/book.jsp</result>
+		</action>
+		<action name="querybook" class="org.action.BookQueryAction">
+			<result name="success">/query/query.jsp</result>
+		</action>
+		<action name="checkreader" class="org.action.LendAction" method="checkReader">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="lendbook" class="org.action.LendAction" method="lendBook">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="returnbooks" class="org.action.LendAction" method="returnBooks">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="lendbooks" class="org.action.LendAction" method="lendBooks">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="querylendrecords" class="org.action.RecordAction" method="queryLendRecords">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+		<action name="queryreserverecords" class="org.action.RecordAction" method="queryReserveRecords">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
+	</package>
+</struts>
