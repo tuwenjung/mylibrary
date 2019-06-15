@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019/5/20 ?U?? 09:32:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping schema="library">
+ <class name="org.module.Reader" table="READER">
+  <id name="id" type="java.lang.Integer">
+   <column name="ID"/>
+   <generator class="native"/>
+  </id>
+  <property generated="never" lazy="false" name="accountid" type="java.lang.Integer">
+   <column name="ACCOUNTID"/>
+  </property>
+  <property generated="never" lazy="false" name="number" type="java.lang.String">
+   <column name="NUMBER"/>
+  </property>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="work" type="java.lang.String">
+   <column name="WORK"/>
+  </property>
+  <property generated="never" lazy="false" name="tel" type="java.lang.String">
+   <column name="TEL"/>
+  </property>
+  <property generated="never" lazy="false" name="address" type="java.lang.String">
+   <column name="ADDRESS"/>
+  </property>
+  <property generated="never" lazy="false" name="gender" type="java.lang.String">
+   <column name="GENDER"/>
+  </property>
+  <property generated="never" lazy="false" name="birthday" type="java.lang.String">
+   <column name="BIRTHDAY"/>
+  </property>
+  <property generated="never" lazy="false" name="photo" type="java.lang.String">
+   <column name="PHOTO"/>
+  </property>
+  <property generated="never" lazy="false" name="remark" type="java.lang.String">
+   <column name="REMARK"/>
+  </property>
+  <property generated="never" lazy="false" name="createtime" type="java.util.Date">
+   <column name="CREATETIME"/>
+  </property>
+  <property generated="never" lazy="false" name="updatetime" type="java.util.Date">
+   <column name="UPDATETIME"/>
+  </property>
+  <property generated="never" lazy="false" name="status" type="java.lang.String">
+   <column name="STATUS"/>
+  </property>
+ </class>
+</hibernate-mapping>
