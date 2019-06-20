@@ -1,6 +1,7 @@
 package org.action;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,54 +56,63 @@ public class BookCRUDAction  extends ActionSupport{
 		}
 		return "lend";
 	}
-
-	public String add() throws Exception{
+	
+	// filename(加上預設的資料夾)轉成base64
+	private String getPhotoBase64(String photoName) {
+		String base64="";
 		String photodir=(String) ActionContext.getContext().getApplication().get("photodir");
 		System.out.println(photodir);
-		Path path=new File(photodir,photo).toPath();
-		// path to base64 ---> tools 
-		InputStream is=Files.newInputStream(path);
-		byte[] buf=new byte[is.available()];
-		is.read(buf);
-		String photoBase64=Base64.getEncoder().encodeToString(buf);
-		
+		Path path=new File(photodir,photoName).toPath();
+		// path to base64 ---> tools
+		byte[] buf = null;
+		try (InputStream is = Files.newInputStream(path)){
+			buf=new byte[is.available()];
+			is.read(buf);
+			base64=Base64.getEncoder().encodeToString(buf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return base64;
+	}
+	
+	
+	public String add() throws Exception{
+		// 設定書籍照片
+		String photoBase64="";
+		if(photo!=null) {
+			photoBase64=getPhotoBase64(photo);
+		}
 		book.setPhoto(photoBase64);
+		// 寫入書籍資料
 		Dao<Book> dao=new BookDao();
 		int id=dao.add(book);
-		if(id>0) {
+		// 
+		if(id>0) { // 寫入成功：回傳Book到網頁
 			Book b=dao.get(id);
 			ActionContext.getContext().getSession().put("bk", b);
-			ActionContext.getContext().getSession().put("msg", "新增成功");
+			ServletActionContext.getRequest().setAttribute("msg", "新增成功");
 		} else {
-			ActionContext.getContext().getSession().put("msg", "新增失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "新增失敗");
 		}
 		return "book";
 	}
 	
 	public String update() throws Exception{
-		System.out.println(photo.getClass().getName());
-		System.out.println("photo"+photo);
 		Dao<Book> dao=new BookDao();
-		if(photo=="") {	//沒有選圖片-->沿用前圖片
-			photo=dao.get(book.getId()).getPhoto();
+		String base64;
+		if(photo==null) {	//沒有選圖片-->沿用前圖片
+			base64=dao.get(book.getId()).getPhoto();
 		}else {
-			String photodir="E:\\My Pictures\\bookphoto\\";//ToDo:set context attr
-			byte[] buf;
-			try(InputStream is=Files.newInputStream(new File(photodir, photo).toPath());){
-				buf=new byte[is.available()];
-				is.read(buf);
-			}
-			photo=Base64.getEncoder().encodeToString(buf);
-			
+			base64=getPhotoBase64(photo);
 		}
-		book.setPhoto(photo);
+		book.setPhoto(base64);
 		System.out.println("book:"+book);
 		int rs=dao.update(book);
 		if(rs==1) {
-			ActionContext.getContext().getSession().put("msg", "修改成功");
-			ActionContext.getContext().getSession().put("bk", dao.get(book.getId()));
+			ServletActionContext.getRequest().setAttribute("msg", "修改成功");
+			ActionContext.getContext().getSession().remove("bk");
 		}else {
-			ActionContext.getContext().getSession().put("msg", "修改失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "修改失敗");
 		}
 		return "book";
 	}
@@ -111,10 +121,10 @@ public class BookCRUDAction  extends ActionSupport{
 		Dao<?> dao=new BookDao();
 		int rs=dao.del(book.getId());
 		if(rs==1) {
-			ActionContext.getContext().getSession().put("msg", "資料已刪除");
-			ActionContext.getContext().getSession().put("bk", new Book());
+			ServletActionContext.getRequest().setAttribute("msg",  "資料已刪除");
+			ActionContext.getContext().getSession().remove("bk");
 		}else {
-			ActionContext.getContext().getSession().put("msg", "刪除失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "刪除失敗");
 		}
 		return "book";
 	}

@@ -9,30 +9,31 @@
 <title>館藏查詢</title>
 </head>
 <body>
-	
+	<div id="querybookresult">
 		<table align="center" id="qryedit">
-			<caption>查詢結果</caption>
+			<caption style="font-size:1.3em">查詢結果</caption>
 			<tr>
 				<th>書名</th>
 				<th>作者</th>
 				<th>內容</th>
 				<th>出版年月</th>
-				<th>索引編號</th>
+				<th>狀態</th>
 				<th>預約</th>
 			</tr>
 			<% 
 				if(session.getAttribute("books")==null){return;}
-				for(Book b:(List<Book>)session.getAttribute("books")){ 
+				List<Book> bks=(List<Book>)session.getAttribute("books");
+				for(int i=0;i<bks.size();i++){ 
 			%>
 			<tr>
-				<td><%=b.getTitle() %></td>
-				<td><%=b.getAuthor() %></td>
-				<td><%=b.getSummary() %></td>
-				<td><%=b.getPublishdate() %></td>
-				<td><%=b.getLocation()%></td>
+				<td><%=bks.get(i).getTitle() %></td>
+				<td><%=bks.get(i).getAuthor() %></td>
+				<td><%=bks.get(i).getSummary() %></td>
+				<td><%=bks.get(i).getPublishdate() %></td>
+				<td><%=bks.get(i).getStatus()%></td>
 				<td>
 					<form method="post" action="reservebook">
-						<button name="id" value="<%=b.getId()%>">預約</button>
+						<button name="bookid" value="<%=bks.get(i).getId()%>">預約</button>
 					</form>
 				</td>
 			</tr>
@@ -47,6 +48,7 @@
 			</td>	
 			</tr></tfoot>
 		</table>
+	</div>
 	${sessionScope.book.title}
 </body>
 </html>

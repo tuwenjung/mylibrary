@@ -22,13 +22,19 @@
 	 function check(){
 		 if(getE("booktitle").innerHTML=="新增"){
 			 if(getE("photo").value==""){
-				 alert("photo="+getE("photo").src);
+				 alert("未選擇圖片");
 				 return false;
 			 }
 		 }
 	 }
-	 function reset(){
-		 
+	 function cleartext(except){
+		 var inputs=$("input");
+		for(i in inputs){
+			if(parseInt(i)!=NaN && parseInt(i)!=except){
+				inputs[i].value="";	
+			}
+		}
+		
 	 }
 </script>
 </head>
@@ -67,15 +73,15 @@
 				<td>　近期更新時間:</td><td><span>${bk.updatetime}</span></td>
 			</tr>
 			<tr>
-				<td>狀態:</td><td><s:select list="{'normal','display','reserve','collected','obsolete','discard'}" name="book.status" theme="simple" id="status"  /></td>
+				<td>狀態:</td><td><s:select list="{'inner','display','reserve','collect','obsolete','discard'}" name="book.status" theme="simple" id="status"  /></td>
 				<td></td><td></td>
 			</tr>
 			<tr height="2">　</tr>
 			<tfoot align="right"><tr>
-				<td></td><td></td><td></td>
+				<td><span id="msg">${msg}</span></td><td></td><td></td>
 				<td>
 					<button type="submit" >執行</button>
-					<input type="reset" value="重填" onclick="reset()"/>
+					<button type="button" id="clrtxt" onclick="cleartext(0)">重填</button>
 				</td>
 			</tr></tfoot>
 		</table>

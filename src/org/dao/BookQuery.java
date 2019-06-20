@@ -25,9 +25,9 @@ public class BookQuery {
 	public List<Book> query(String basis, String column) {
 		Session ses = new Configuration().configure().buildSessionFactory().openSession();
 		String sql="";
-		if(column=="title") {
+		if(column.equals("title")) {
 			sql = "SELECT * FROM library.book WHERE " + column + " like ?";
-			basis="%"+basis+"%".intern();
+			basis="%"+basis+"%";
 		}else {
 			sql = "SELECT * FROM library.book WHERE " + column + "=?";
 		}
@@ -53,8 +53,8 @@ public class BookQuery {
 	public static void main(String[] args) {
 		BookQuery bq = new BookQuery();
 //		List<Book> listBook = bq.queryByISBN("978-968-276-280-6");
-//		List<Book> listBook = bq.queryByAuthor("¤ì©ö");
-		List<Book> listBook = bq.queryByTitle("ÀAÅn§®­p");
+//		List<Book> listBook = bq.queryByAuthor("ï¿½ï¿½ï¿½");
+		List<Book> listBook = bq.queryByTitle("ï¿½Aï¿½nï¿½ï¿½ï¿½p");
 		for(Book b:listBook) {
 			System.out.println(b.getTitle()+","+b.getId());
 		}

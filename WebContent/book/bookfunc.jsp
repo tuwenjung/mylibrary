@@ -12,27 +12,30 @@
 <script type="text/javascript" src="/mylibrary/js/base.js"></script>
 <script>
 	window.onload=function(){
+		if("${empty ac}"){location.assign="/index.jsp";}
 		var id  =getE("id");			var bknam=getE("bookname");
 		var isbn=getE("isbn");			var autor=getE("author");
 		var puber=getE("publisher");	var pubte=getE("publishdate");
 		var sumry=getE("summary");		var price=getE("price");
 		var photo=getE("photo");		var locon=getE("location");
 		var staus=getE("status");		var img=getE("img");
-		var elets=[id,bknam,isbn,autor,puber,pubte,sumry,price,photo,locon,staus];
+		var clrbtn=getE("clrtxt");
+		var elets=[id,bknam,isbn,autor,puber,pubte,sumry,price,photo,locon,staus,clrbtn];
 		var act=getE("act");			var boorm=getE("bookform");
 		var bkdit=getE("bookedit"); 		var bkmit=getE("bksubmit");
-		booktitle=getE("booktitle")
-		
+		var booktitle=getE("booktitle")
+				
 		allDisable(elets);
 		staus.value="${bk.status}";//TODO:無效
 		
 		var getbtn=getE("gbk");		var addbtn=getE("abk");
 		var updbtn=getE("ubk");		var delbtn=getE("dbk");
-		
-		if("${bk}"==""){
+		function hideUpDelBtn(){
 			updbtn.style="display:none;";
 			delbtn.hidden=true;	
 		}
+		if(id.value==""){hideUpDelBtn();}
+		
 		img.src="data:image/jpeg;base64,"+"${bk.photo}";
 		
 		photo.onchange=function(){
@@ -49,10 +52,13 @@
 			id.readOnly=false;
 			boorm.action="getbook";
 			booktitle.innerHTML="查詢";
+			cleartext();
+			hideUpDelBtn();
+			
 		};
 		//新增書籍資料
 		addbtn.onclick=function(){
-			allEnable(elets,new Array(id));
+			allEnable(elets,new Array(id,status));
 			boorm.action="addbook";
 			booktitle.innerHTML="新增";
 		};
@@ -71,7 +77,7 @@
 			booktitle.innerHTML="刪除";
 		};
 	}
-	
+
 </script>
 </head>
 <body>

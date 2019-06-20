@@ -46,10 +46,21 @@ public class RecordDao implements Dao<Record> {
 	
 	@Override
 	public int add(Record r) {
+		return add(r,"lendtime");
+	}
+	
+	public int addReserve(Record r) {
+		return add(r,"reservetime");
+	}
+	 
+	private int add(Record r,String kindOfTime) {
 		Session ses=DBSess.ses();
-		Transaction tx=ses.beginTransaction();
+		Transaction tx = null;
+		if(!ses.getTransaction().isActive()) {
+			tx=ses.beginTransaction();
+		}
 		try {
-			String sql="INSERT INTO record(readerid,bookid,adminid,lendtime) VALUES(?,?,?,NOW())";
+			String sql="INSERT INTO record(readerid,bookid,adminid,"+kindOfTime+") VALUES(?,?,?,NOW())";
 			NativeQuery query=ses.createSQLQuery(sql);
 			query.setParameter(1, r.getReaderid());
 			query.setParameter(2,r.getBookid());
@@ -60,10 +71,10 @@ public class RecordDao implements Dao<Record> {
 			return 1;
 		}catch(Exception e){
 			tx.rollback();
+			
 		}
 		return 0;
 	}
-
 	@Override
 	public int update(Record r) {
 		Session ses=DBSess.ses();
@@ -118,6 +129,8 @@ public class RecordDao implements Dao<Record> {
 		}
 		
 	}
+
+
 
 
 

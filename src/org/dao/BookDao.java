@@ -54,9 +54,6 @@ public class BookDao implements Dao<Book>{
 	public Book get(int id) {
 		Session ses=new Configuration().configure().buildSessionFactory().openSession();
 		Book book=ses.get(Book.class, id);
-		if(book==null) {
-			return new Book();
-		}
 		return book;
 	}
 

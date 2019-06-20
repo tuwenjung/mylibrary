@@ -19,11 +19,16 @@ h6 {font-size: 1.1em; color:#f4fa61; padding-bottom:1px;}
 input{font-size:1em; border-radius:6px; font-weight:bold;}
 input[type="submit"]{color:green; background-color:yellow; margin:25px 10px 0 20px;}
 button[type="submit"]{color:brown; background-color:#fcebb1;border-radius:6px;border:solid 2px #bd8035;}
+button[type="button"]{color:brown; background-color:#ecf885;border-radius:6px;border:solid 2px #bd8035;}
 
 .wrapper{width:100%;height:750px;background-color:#fefed9;}
 header{width:100%;height:25%;background:url("/mylibrary/images/mylib_logo.png");}
-aside{width:24%;height:75%;background-color:e#e3a06a; float:left; }
+aside{width:24%;height:75%;background-color:e#e3a06a; float:left;}
 section{width:74%;height:75%;background-color:#cae146; float:right;color:#b5a61e;}
+
+#querybookresult{
+	height:200px background:yellow; overflow: hidden;	
+}
 
 .funcmenu ul {
 	display: flex;
@@ -77,13 +82,13 @@ section{width:74%;height:75%;background-color:#cae146; float:right;color:#b5a61e
 
 
 #qryedit{
-	font-weight:300; font-size:1.2em; text-shadow: blue 1px 2px;
-	padding:5px;
-	color:#ffa53e;border:solid 2px darkblue;
+	font-size:1.2em; text-shadow: #8000ff 1px 0 2px;
+	padding:5px; overflow:hidden; width:80%; height:300px;
+	color:#ffb7ff;	border:solid 2px darkblue;
 }
 tr{padding-left:0;}
-th{background-color:darkblue; color:#faccfa;}
-td,th{text-align:center;border:solid 2px blue;padding:3px;}
+th{background-color:darkblue; color:#faccfa; height:1.1em;}
+td,th{text-align:center;border:solid 2px blue;height:1em;}
 tfoot td{border-width:0;}
 
 
@@ -91,3 +96,4 @@ tfoot td{border-width:0;}
 
 #gbk,#ubk,#abk,#dbk{cursor: pointer;}
 
+#msg{font-size:1.2em; color:#ff9c39; text-shadow: black 2px 2px 1px; }

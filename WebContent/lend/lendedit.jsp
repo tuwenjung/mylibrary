@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>    
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,10 @@
 </head>
 <body>
 	<s:form action="getbook" id="lendform" name="lendform">
-		<h3 id="lendhead">書籍資訊</h3>
+		<h3 id="lendhead">
+			<c:if test="${!empty rid}">借書</c:if>
+			<c:if test="${empty rid}">書籍資訊</c:if>
+		</h3>
 		<input type="text" name="readerid" value="${rid}" id="readerid">
 		<table align="center">
 			<tr>

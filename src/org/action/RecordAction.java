@@ -29,10 +29,8 @@ public class RecordAction extends ActionSupport{
 		HttpServletRequest req=ServletActionContext.getRequest();
 		req.setAttribute("books", books);
 		req.setAttribute("records", records);
-		System.out.println(books+","+books);
 		RequestDispatcher d=req.getRequestDispatcher("/lend/lend.jsp");
 		d.forward(req, ServletActionContext.getResponse());
-//		return "lend";
 	}
 	public void queryReserveRecords() throws IOError, ServletException, IOException{
 		RecordDao dao= new RecordDao();
@@ -42,7 +40,6 @@ public class RecordAction extends ActionSupport{
 		HttpServletRequest req=ServletActionContext.getRequest();
 		req.setAttribute("books", books);
 		req.setAttribute("records", records);
-		System.out.println(books+","+books);
 		RequestDispatcher d=req.getRequestDispatcher("/lend/lend.jsp");
 		d.forward(req, ServletActionContext.getResponse());
 //		return "lend";
