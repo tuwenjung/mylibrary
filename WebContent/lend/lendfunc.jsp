@@ -11,33 +11,9 @@
 <script type="text/javascript">
 	window.onload=function(){
 		var id = getE("id");
-		var title = getE("title");
-		var author = getE("author");
-		var publisher = getE("publisher");
-		var publishdate = getE("publishdate");
-		var location = getE("location");
-		var status = getE("status");
-		var checkform=getE('checkform');
-		var readerid=getE("readerid");
-		var header=getE("lendhead");
 		if(id!=null){
 			id.disabled="${rid}"==""?true:false;
 		}
-		readerid.disabled="${rid}"==""?false:true;
-				
-		getE("lend").onclick=function(){
-			header.innerHTML="借書";
-		}
-		getE("back").onclick=function(){
-			header.innerHTML="還書";
-			document.checkform.action="querylendrecords";
-			document.checkform.submit();
-		}	
-// 		getE("reserve").onclick=function(){
-// 			alert("reserve");
-// 		}	
-		
-	
 	}
 	
 	function querylendrecords(){
@@ -62,7 +38,7 @@
 			<li><button type="submit" id="lend" >借閱</button></li>
 			<li><button type="button" id="back" onclick="querylendrecords()">歸還</button></li>
 			<li><button type="button" id="reserve" onclick="queryreserverecords()">預約未取</button></li>
-			
+			<li><button type="button" id="reserve" onclick="window.open('/mylibrary/lend/lend.jsp','_parent')">新增讀者</button></li>
 			
 		</ul>
 	</form>

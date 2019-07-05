@@ -36,26 +36,38 @@ public class LendAction extends ActionSupport {
 		HttpServletRequest req=ServletActionContext.getRequest();
 		if(dao.check(readerid)) {
 			req.getSession().setAttribute("rid",readerid);
+			req.setAttribute("msg", "Valid ReaderIid");
 		}
 		req.getRequestDispatcher("/lend/lend.jsp").forward(req, ServletActionContext.getResponse());
 	}
 	
 	private boolean editRecord(String doing) throws IOException {
 		RecordDao rDao=new RecordDao();
+		BookDao bDao=new BookDao();
 		Record record=null;
 		switch(doing) {
 			case "lend":// add Record with lendtime    	TODO:set status as outer
 				Account admin=(Account) ActionContext.getContext().getSession().get("ac");
-				record=new Record(readerid,book.getId(),admin.getId());
-				int rs=rDao.add(record);
+				record=new Record(readerid,bookid,admin.getId());
+				Book bk= bDao.get(bookid);
+				bk.setStatus("outer");
+				{ //TODO:atomic operation
+				rDao.add(record);
+				bDao.update(bk);
+				}
 				break;	
 			case "return": // write Record.returntime	TODO:set status as inner
+				Book bk2=bDao.get(new Integer(readerid));
+				bk2.setStatus("inner");
+				{ //TODO:atomic operate
 				rDao.updatTimes(ids,Record.SHIFT.RT);
+				bDao.update(bk2);
+				}
 				break;
 			case "lendSome": // write Record.lendtime
 				rDao.updatTimes(ids,Record.SHIFT.LT);
 				break;
-			case "reserve" :
+			case "reserve" : 
 				System.out.println("reserve");
 				Account ac= (Account) ActionContext.getContext().getSession().get("ac");
 				if(ac==null) {

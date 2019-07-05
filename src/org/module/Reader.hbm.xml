@@ -17,8 +17,8 @@
   <property generated="never" lazy="false" name="name" type="java.lang.String">
    <column name="NAME"/>
   </property>
-  <property generated="never" lazy="false" name="work" type="java.lang.String">
-   <column name="WORK"/>
+  <property generated="never" lazy="false" name="email" type="java.lang.String">
+   <column name="EMAIL"/>
   </property>
   <property generated="never" lazy="false" name="tel" type="java.lang.String">
    <column name="TEL"/>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.conn.DBSess;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.module.Reader;
@@ -33,7 +34,16 @@ public class ReaderDao implements Dao<Reader>{
 
 	@Override
 	public int add(Reader ac) {
-		// TODO Auto-generated method stub
+		
+		Session ses=DBSess.ses();
+		Transaction  tx=ses.beginTransaction();
+		try {
+			ses.save(ac);
+			tx.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 		return 0;
 	}
 

@@ -21,12 +21,15 @@
 				<th>預約</th>
 			</tr>
 			<% 
-				if(session.getAttribute("books")==null){return;}
-				List<Book> bks=(List<Book>)session.getAttribute("books");
+				if(request.getAttribute("books")==null){return;}
+				List<Book> bks=(List<Book>)request.getAttribute("books");
+				
 				for(int i=0;i<bks.size();i++){ 
+					pageContext.setAttribute("bk", bks.get(i));
 			%>
 			<tr>
-				<td><%=bks.get(i).getTitle() %></td>
+<%-- 				<td><%=bks.get(i).getTitle() %></td> --%>
+				<td>${bk.title}</td>
 				<td><%=bks.get(i).getAuthor() %></td>
 				<td><%=bks.get(i).getSummary() %></td>
 				<td><%=bks.get(i).getPublishdate() %></td>

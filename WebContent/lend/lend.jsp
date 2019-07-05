@@ -22,13 +22,21 @@
 		<section>
 			<c:choose>
 				<c:when test="${!empty books}">
+					BOOK:${books}
 					<jsp:include page="returnedit.jsp"/>
 				</c:when>
 				<c:otherwise>
-					<jsp:include page="lendedit.jsp"/>
+					<c:choose>
+						<c:when test="${!empty msg}">
+							MSG:${msg}
+							<jsp:include page="lendedit.jsp"/>
+						</c:when>
+						<c:otherwise>
+							<jsp:include page="/reader/readeredit.jsp"/>
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
-			
 		</section>
 	</div>
 

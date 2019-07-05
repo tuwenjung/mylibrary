@@ -24,25 +24,36 @@ public class RecordAction extends ActionSupport{
 	public void queryLendRecords() throws IOError, ServletException, IOException{
 		RecordDao dao= new RecordDao();
 		//已借出的未還
-		List<Record> records=dao.getNeverReturn(readerid,SHIFT.LT);
+		List<Record> records=dao.getNotReturn(readerid,SHIFT.LT);
 		List<Book> books=dao.getAllLendBooks(readerid);
 		HttpServletRequest req=ServletActionContext.getRequest();
 		req.setAttribute("books", books);
 		req.setAttribute("records", records);
-		RequestDispatcher d=req.getRequestDispatcher("/lend/lend.jsp");
+		RequestDispatcher d;
+		if(req.getParameter("src")==null) {
+			d=req.getRequestDispatcher("/lend/lend.jsp");
+		}else {
+			d=req.getRequestDispatcher("/reader/reader.jsp");
+			req.setAttribute("src", "reader");
+		}
 		d.forward(req, ServletActionContext.getResponse());
 	}
 	public void queryReserveRecords() throws IOError, ServletException, IOException{
 		RecordDao dao= new RecordDao();
 		//已預約的未借(當然未還)
-		List<Record> records=dao.getNeverReturn(readerid,SHIFT.RT);
+		List<Record> records=dao.getNotReturn(readerid,SHIFT.RT);
 		List<Book> books=dao.getAllLendBooks(readerid);
 		HttpServletRequest req=ServletActionContext.getRequest();
 		req.setAttribute("books", books);
 		req.setAttribute("records", records);
-		RequestDispatcher d=req.getRequestDispatcher("/lend/lend.jsp");
+		RequestDispatcher d;
+		if(req.getParameter("src")==null) {
+			d=req.getRequestDispatcher("/lend/lend.jsp");
+		}else {
+			d=req.getRequestDispatcher("/reader/reader.jsp");
+			req.setAttribute("src", "reader");
+		}
 		d.forward(req, ServletActionContext.getResponse());
-//		return "lend";
 	}
 	
 	public Integer getReaderid() {

@@ -22,10 +22,10 @@ public class RecordDao implements Dao<Record> {
 		Session ses=DBSess.ses();
 		return ses.load(Record.class, id);
 	}
-	// returntime=null -> 未還	lendtime!=null -> 已借	lendtime!=null -> 已預約 (未借)
-	public List<Record> getNeverReturn(Integer readerid,SHIFT shift){
+	// returntime=null -> 未還	lendtime!=null -> 已借	lendtime==null -> 未借(預約)
+	public List<Record> getNotReturn(Integer readerid,SHIFT shift){
 		Session ses=DBSess.ses();
-		String YN=shift==SHIFT.LT?"NOT":"";
+		String YN=shift==SHIFT.LT?"NOT":""; //not:lendtime not null：借出    | lendtime is null:預約 	   
 		String sql = "SELECT * FROM record WHERE readerid=? AND returntime IS NULL AND lendtime IS "+YN+" NULL";
 		NativeQuery<Record> query=ses.createSQLQuery(sql);
 		query.addEntity(Record.class);

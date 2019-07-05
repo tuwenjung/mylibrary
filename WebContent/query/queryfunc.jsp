@@ -19,12 +19,12 @@
 	<div class="funcmenu">
 	<form method="post" action="querybook">	
 		<div style="padding:20x;">
-			<input type="radio" value="title" name="column">書名
+			<input type="radio" value="title" name="column" checked>書名
 			<input type="radio" value="author" name="column">作者
 			<input type="radio" value="isbn" name="column">ISBN
 		</div>
 		<p style="align-items:left;">
-			<input type="text" name="basis">
+			<input type="text" name="basis" required>
 		</p>
 		<p style="margin-left:100px">
 			<button type="submit" id=".submit">查詢</button>

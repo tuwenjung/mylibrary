@@ -2,6 +2,9 @@ package org.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.dao.BookQuery;
 import org.module.Book;
@@ -27,7 +30,11 @@ public class BookQueryAction extends DefaultActionSupport{
 	@Override
 	public String execute() throws Exception {
 		List<Book> bookList=new BookQuery().query(basis, column);
-		ActionContext.getContext().getSession().put("books", bookList);
+		HttpServletRequest req=ServletActionContext.getRequest();
+		req.setAttribute("books", bookList);
+		req.getRequestDispatcher("/query/query.jsp").forward(req, ServletActionContext.getResponse());
+		
+//		ActionContext.getContext().getSession().put("books", bookList);
 		return SUCCESS;
 	}
 	

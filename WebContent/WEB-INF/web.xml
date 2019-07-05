@@ -8,11 +8,14 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
-    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <context-param>
   	<param-name>photodir</param-name>
   	<param-value>E:\\My Pictures\\bookphoto\\</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>personphoto</param-name>
+  	<param-value>\\mylibrary\\personphoto\\</param-value>
   </context-param>
   <session-config>
   	<session-timeout>10</session-timeout>

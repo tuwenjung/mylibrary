@@ -22,14 +22,7 @@ public class BookCRUDAction  extends ActionSupport{
 	private static final long serialVersionUID = -7499710752617796166L;
 	private Book book;
 	private Integer readerid;
-	public Integer getReaderid() {
-		return readerid;
-	}
-
-	public void setReaderid(Integer readerid) {
-		this.readerid = readerid;
-	}
-
+	
 	private String photo;
 
 	public String getPhoto() {
@@ -46,15 +39,19 @@ public class BookCRUDAction  extends ActionSupport{
 		System.out.println("book id:"+book.getId());
 		Book b=dao.get(book.getId());
 		if(b!=null) {
-			ActionContext.getContext().getSession().put("bk", b);
-			ActionContext.getContext().getSession().put("msg", "已查到");
+			if(readerid==null) { //book.jsp
+				ActionContext.getContext().getSession().put("bk", b);
+			}else { //lend.jsp
+				ServletActionContext.getRequest().setAttribute("bk", b);
+			}
+			ServletActionContext.getRequest().setAttribute("msg", "getV");
 		}else {
-			ActionContext.getContext().getSession().put("msg", "查無此書");
+			ServletActionContext.getRequest().setAttribute("msg", "getX");
 		}
-		if(readerid==null) {
+		if(readerid==null) { // 從book畫面要求查詢
 			return "book";
 		}
-		return "lend";
+		return "lend"; //從lend畫面要求查詢
 	}
 	
 	// filename(加上預設的資料夾)轉成base64
@@ -90,9 +87,9 @@ public class BookCRUDAction  extends ActionSupport{
 		if(id>0) { // 寫入成功：回傳Book到網頁
 			Book b=dao.get(id);
 			ActionContext.getContext().getSession().put("bk", b);
-			ServletActionContext.getRequest().setAttribute("msg", "新增成功");
+			ServletActionContext.getRequest().setAttribute("msg", "addV");
 		} else {
-			ServletActionContext.getRequest().setAttribute("msg", "新增失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "addX");
 		}
 		return "book";
 	}
@@ -100,19 +97,21 @@ public class BookCRUDAction  extends ActionSupport{
 	public String update() throws Exception{
 		Dao<Book> dao=new BookDao();
 		String base64;
-		if(photo==null) {	//沒有選圖片-->沿用前圖片
+		System.out.println("*photoo****"+photo);
+		if(photo=="") {	//沒有選圖片-->沿用前圖片(空字串(不是NULL))
 			base64=dao.get(book.getId()).getPhoto();
+			System.out.println("*****"+base64);
 		}else {
 			base64=getPhotoBase64(photo);
 		}
 		book.setPhoto(base64);
-		System.out.println("book:"+book);
+		System.out.println("*****book:"+book);
 		int rs=dao.update(book);
 		if(rs==1) {
-			ServletActionContext.getRequest().setAttribute("msg", "修改成功");
+			ServletActionContext.getRequest().setAttribute("msg", "updV");
 			ActionContext.getContext().getSession().remove("bk");
 		}else {
-			ServletActionContext.getRequest().setAttribute("msg", "修改失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "updX");
 		}
 		return "book";
 	}
@@ -121,13 +120,20 @@ public class BookCRUDAction  extends ActionSupport{
 		Dao<?> dao=new BookDao();
 		int rs=dao.del(book.getId());
 		if(rs==1) {
-			ServletActionContext.getRequest().setAttribute("msg",  "資料已刪除");
+			ServletActionContext.getRequest().setAttribute("msg",  "delV");
 			ActionContext.getContext().getSession().remove("bk");
 		}else {
-			ServletActionContext.getRequest().setAttribute("msg", "刪除失敗");
+			ServletActionContext.getRequest().setAttribute("msg", "delX");
 		}
 		return "book";
 	}
+	// 清除Session:book
+	public String clear() throws Exception{
+		ActionContext.getContext().getSession().remove("bk");
+		return "lend";
+	}
+	
+	
 	
 	public Book getBook(){
 		return book;
@@ -136,4 +142,13 @@ public class BookCRUDAction  extends ActionSupport{
 	public void setBook(Book book){
 		this.book = book;
 	}
+
+	public Integer getReaderid() {
+		return readerid;
+	}
+
+	public void setReaderid(Integer readerid) {
+		this.readerid = readerid;
+	}
+
 }

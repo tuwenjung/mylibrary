@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <title>借書</title>
 <script type="text/javascript">
+	//檢查有無登入(此處為管理員)、讀者及書籍ID不得空白、書籍可以借出(status:inner)
 	function lendbook(){
-		alert("lendbook");
 		if("${ac}"==""){
-			alert("already log out");
+			alert("書籍外借中");
 			window.location.replace('/mylibrary/index.jsp');
 			return;
 		}
@@ -19,36 +19,48 @@
 			alert("未指定借閱者");
 			return;
 		}
-		if(id.value==""){
-			alert("未輸入書籍識別碼");
+		if(getE("bookid").value==""){ //bookid
+			alert("請輸入書籍id");
 			return;
 		}
-
-
-		console.log("pass");
+		if("${bk.status}"!="inner"){
+			alert("此書無法借出");
+			return;
+		}
 		document.lendform.action="lendbook";
 		document.lendform.submit();
 	}
-	function checkbookid(){
-		alert("ckbkid");
+	//檢查bookid：不得空白
+	function checkBookId(){
+		getE("book_id").value=getE("bookid").value;
 		if(getE("id").value==""){
 			alert("請輸入id");
 			getE("id").focus();
 			return false;
 		}
 	}
+	//把session book 清除
+	function clearbook(){
+		document.lendform.action="clearbook";
+		document.lendform.submit();
+	}
+	
+
 </script>
 </head>
 <body>
-	<s:form action="getbook" id="lendform" name="lendform">
+	<s:form action="getbook" id="lendform" name="lendform" onsubmit="return checkBookId()">
 		<h3 id="lendhead">
 			<c:if test="${!empty rid}">借書</c:if>
 			<c:if test="${empty rid}">書籍資訊</c:if>
 		</h3>
-		<input type="text" name="readerid" value="${rid}" id="readerid">
+		<input type="hidden" name="readerid" id="readerid" value="${rid}">
 		<table align="center">
 			<tr>
-				<td>ID:</td><td><input type="number" name="book.id" value="${bk.id}" min="1" id="id"/></td>
+				<td>
+					ID:</td><td><input type="number" name="bookid" value="${bk.id}"  id="bookid" min="1" autofocus/>
+					<input type="hidden" name="book.id" value="${bk.id}" id="book_id">
+				</td>
 				<td><input type="submit" value="查詢" onsubmit="return checkbookid()"></td>
 			</tr>
 			<tr>
@@ -63,16 +75,16 @@
 				<td>位置:</td><td class="data">${bk.location}</td>
 				<td>狀態:</td><td class="data">${bk.status}</td>
 			</tr>
-			<tr height="20">　</tr>
+			<tr height="20"><td class="msg">${msg}</td></tr>
 			<tfoot align="right"><tr>
 				<td></td><td></td><td></td>
 				<td>
 					<button type="button" onclick="lendbook()" style="margin-right:20px;">借出</button>
-					<s:reset value="清空" theme="simple"/>
+					<button type="button" onclick="clearbook()">取消</button>
 				</td>
 			</tr></tfoot>
 		</table>
-	
 	</s:form>
+
 </body>
 </html>

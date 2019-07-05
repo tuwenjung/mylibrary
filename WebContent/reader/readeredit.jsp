@@ -7,46 +7,31 @@
 <meta charset="UTF-8">
 <title>讀者專區</title>
 <style type="text/css">
-tr {
-	padding-left: 0;
-}
-
-td {
-	text-align: left;
-}
-
-#bkedit {
-	font-weight: bold;
-	font-size: 1.2em;
-	padding: 5px;
-	color: #ff45fe;
-}
-
-#head {font-size =2em;
-	color: red;
-}
-
-#readersubmit{
-	margin-right: 20px;
-}
 </style>
-<script>
-	
+<script type="text/javascript">
+	function setImg(file){
+		var ptdir=file.value;
+		var f=ptdir.split("\\");
+		var sltdir="${initParam.personphoto}"+f[f.length-1];
+		getE("img").src=sltdir;	
+	}
+
 </script>
 </head>
 <body>
-	<form method="post" id="readerform" action="getreader"
-		enctype="application/x-www-form-urlencoded">
-		<table align="center" id="bkedit">
-			<caption id="head">編輯區</caption>
+1. ${param.personphoto}
+2. ${initparam.personphoto}
+	<form method="post" id="readerform" action="addreader">
 
+		<h3>讀者資訊</h3>
+		<table align="center" id="bkedit">
 			<tr>
 				<td>ID:</td>
 				<td><input type="hidden" name="reader.id" min="1" id="id"
 					value="${sessionScope.reader.id}" />
 				</td>
 				<td>編號:</td>
-				<td><input type="text" name="reader.num" id="num"
+				<td><input type="text" name="reader.number" id="number"
 					value="${sessionScope.reader.num}"/>
 				</td>
 			</tr>
@@ -54,9 +39,9 @@ td {
 				<td>姓名:</td>
 				<td><input type="text" name="reader.name" id="name"
 					value="${sessionScope.reader.name}" /></td>
-				<td>職業:</td>
-				<td><input type="text" name="reader.work" id="work"
-					value="${sessionScope.reader.work}" /></td>
+				<td>電子信箱:</td>
+				<td><input type="email" name="reader.email" id="email"
+					value="${sessionScope.reader.email}" /></td>
 			</tr>
 			<tr>
 				<td>電話:</td>
@@ -80,9 +65,10 @@ td {
 			</tr>
 			<tr>
 				<td>照片:</td>
-				<td><input type="file" name="photo" id="photo" accept="image/*" />
+				<td><input type="file" name="reader.photo" id="photo" accept="image/*" onchange="setImg(this)"
+							value="${reader.photo}"/>
 					<div>
-						<img src="data:image/jpeg;base64,${reader.photo}" width="150"
+						<img src="\mylibrary\personphoto\my.png" width="150"
 							height="120" id="img" />
 					</div>
 				</td>
@@ -95,19 +81,9 @@ td {
 			</tr>
 			<tr>
 				<td>建立時間:</td>
-				<td><input type="text" name="reader.createtime" id="createtime"
-					value="${sessionScope.reader.createtime}" /></td>
+				<td>${sessionScope.reader.createtime}</td>
 				<td>近期更新時間:</td>
-				<td><input type="text" name="reader.updatetime" id="updatetime"
-					value="${sessionScope.reader.updatetime}" /></td>
-			</tr>
-			<tr>
-				<td>狀態:</td>
-				<td><s:select
-						list="{'normal','forbid','uncommon'}"
-						name="reader.status" theme="simple" id="status" /></td>
-				<td></td>
-				<td></td>
+				<td>${sessionScope.reader.updatetime}</td>
 			</tr>
 			<tr height="20">
 			</tr>

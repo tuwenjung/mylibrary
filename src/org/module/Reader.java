@@ -7,7 +7,7 @@ public class Reader {
 	private  Integer accountid;
 	private  String number;
 	private  String name;
-	private  String work;
+	private  String email;
 	private  String tel;
 	private  String address;
 	private  String gender;
@@ -41,11 +41,11 @@ public class Reader {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getWork() {
-		return work;
+	public String getEmail() {
+		return email;
 	}
-	public void setWork(String work) {
-		this.work = work;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getTel() {
 		return tel;

@@ -15,11 +15,14 @@ h5 {font-size: 1.4em; color:#c4ea51; padding-bottom:2px;}
 h6 {font-size: 1.1em; color:#f4fa61; padding-bottom:1px;}
 
 
-
-input{font-size:1em; border-radius:6px; font-weight:bold;}
-input[type="submit"]{color:green; background-color:yellow; margin:25px 10px 0 20px;}
-button[type="submit"]{color:brown; background-color:#fcebb1;border-radius:6px;border:solid 2px #bd8035;}
-button[type="button"]{color:brown; background-color:#ecf885;border-radius:6px;border:solid 2px #bd8035;}
+a:hover{color:red;font-size:1.1em;}
+input,button{font-size:1em; border-radius:6px; font-weight:bold; box-shadow:#ceaa86 2px 2px 1px; cursor:pointer;}
+input[type="submit"]{color:green; background-color:#f3eed3; margin:25px 10px 0 20px;}
+button[type="submit"]{color:brown; background-color:#fdf4d7;}
+button[type="button"]{color:brown; background-color:#f2e9e3;}
+input[type="submit"]:hover{background:#dbffff;}
+button[type="submit"]:hover{background:#ffe0c1;}
+button[type="button"]:hover{background:#ffd2ff;}
 
 .wrapper{width:100%;height:750px;background-color:#fefed9;}
 header{width:100%;height:25%;background:url("/mylibrary/images/mylib_logo.png");}
@@ -89,11 +92,15 @@ section{width:74%;height:75%;background-color:#cae146; float:right;color:#b5a61e
 tr{padding-left:0;}
 th{background-color:darkblue; color:#faccfa; height:1.1em;}
 td,th{text-align:center;border:solid 2px blue;height:1em;}
-tfoot td{border-width:0;}
+tfoot td{border-width:0;text-align:center;}
 
+.readertable{padding:0;margin:0 auto;}
+.readertable, .readertable tr, .readertable td{border:none;}
+.readertable tr:last-child, .readertable a{padding:0 auto; margin:0 auto;background-color:#edfae9;}
+.readertable a{box-shadow:#d2c091 2px 2px 1px; border-radius: 10px;}
 
 #ac_info{margin:0 auto; font-size:1.2em; color:#0d9f77;}
 
 #gbk,#ubk,#abk,#dbk{cursor: pointer;}
 
-#msg{font-size:1.2em; color:#ff9c39; text-shadow: black 2px 2px 1px; }
+.msg{font-size:1.2em; color:#df9d22; text-shadow: black 1px 1px 1px; }

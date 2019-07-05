@@ -25,6 +25,9 @@
 		<action name="delbook" class="org.action.BookCRUDAction" method="del">
 			<result name="book">/book/book.jsp</result>
 		</action>
+		<action name="clearbook" class="org.action.BookCRUDAction" method="clear">
+			<result name="lend">/lend/lend.jsp</result>
+		</action>
 		<action name="querybook" class="org.action.BookQueryAction">
 			<result>/query/query.jsp</result>
 		</action>
@@ -50,6 +53,11 @@
 			<result>/query/reserveok.jsp</result>
 			<result name="error">/index.jsp</result>
 		</action>
-		
+		<action name="addreader" class="org.action.ReaderAction" method="add">
+			<result>/reader/reader.jsp</result>
+		</action>
+		<action name="modifyreaderinfo" class="org.action.ReaderAction" method="update">
+			<result>/reader/reader.jsp</result>
+		</action>
 	</package>
 </struts>

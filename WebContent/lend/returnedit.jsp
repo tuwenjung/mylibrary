@@ -8,7 +8,6 @@
 <title>還書</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
-	
 	function setaction(){
 		alert("是否為預約：${empty records[0].lendtime}");
 		if("${empty records[0].lendtime}"=="true"){
@@ -21,11 +20,18 @@
 </script>
 </head>
 <body>
+	${src}
 	<form action="returnbooks" id="returnform" name="returnform" onsubmit="return setaction()">
 		<h3 id="lendhead">
 		<c:choose>
-			<c:when test="${!empty records[0].lendtime}">還書</c:when>
-			<c:otherwise>預約</c:otherwise>
+			<c:when test="${!empty records[0].lendtime}">
+				<c:if test="${empty src}">還書</c:if>
+				<c:if test="${!empty src}">已借未還</c:if>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${empty src}">預約</c:if>
+				<c:if test="${!empty src}">預約未取</c:if>
+			</c:otherwise>
 		</c:choose>
 		</h3>
 		<table align="center">
@@ -39,12 +45,14 @@
 						<c:otherwise>預約時間</c:otherwise>
 					</c:choose>
 				</th>
-				<th>
-					<c:choose>
-						<c:when test="${!empty records[0].lendtime}">歸還</c:when>
-						<c:otherwise>借閱</c:otherwise>
-					</c:choose>
-				</th>
+				<c:if test="${empty src}">		
+					<th>
+						<c:choose>
+							<c:when test="${!empty records[0].lendtime}">歸還</c:when>
+							<c:otherwise>借閱</c:otherwise>
+						</c:choose>
+					</th>
+				</c:if>
 			</tr>
 			<c:forEach  items="${records}" var="r">
 			<tr>
@@ -62,7 +70,10 @@
 					</c:choose>
 					
 				</td>
-				<td><input type="checkbox" value="${r.id}" name="ids"></td>
+				<c:if test="${empty src}">
+					<td><input type="checkbox" value="${r.id}" name="ids"></td>
+				</c:if>
+				
 			</tr>
 			</c:forEach>
 			<tr height="20">　</tr>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
   
 <!DOCTYPE html>
 <html>
@@ -78,7 +80,13 @@
 			</tr>
 			<tr height="2">　</tr>
 			<tfoot align="right"><tr>
-				<td><span id="msg">${msg}</span></td><td></td><td></td>
+				<td><span class="msg">
+					${msg}
+					
+					<c:if test="${msg=='addX' or msg=='updX'}">
+						可能圖檔過大(>50k)
+					</c:if>					
+				</span></td><td></td><td></td>
 				<td>
 					<button type="submit" >執行</button>
 					<button type="button" id="clrtxt" onclick="cleartext(0)">重填</button>
@@ -87,6 +95,6 @@
 		</table>
 		
 	</form>
-	${book}
+	
 </body>
 </html>
