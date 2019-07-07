@@ -30,6 +30,11 @@
 			});
 		}
 	}
-	
+	// 登入驗證
+	window.onloaod=function(){
+		if("${ac}"==""){
+			window.open("/index.jsp","_parent");
+		}
+	}
 	
 	

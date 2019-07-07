@@ -54,10 +54,13 @@
 			<result name="error">/index.jsp</result>
 		</action>
 		<action name="addreader" class="org.action.ReaderAction" method="add">
-			<result>/reader/reader.jsp</result>
+			<result>/lend/lend.jsp</result>
 		</action>
 		<action name="modifyreaderinfo" class="org.action.ReaderAction" method="update">
 			<result>/reader/reader.jsp</result>
+		</action>
+		<action name="addaccount" class="org.action.LoginAction" method="add">
+			<result>/index.jsp</result>
 		</action>
 	</package>
 </struts>

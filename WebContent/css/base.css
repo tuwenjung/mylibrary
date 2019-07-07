@@ -103,4 +103,4 @@ tfoot td{border-width:0;text-align:center;}
 
 #gbk,#ubk,#abk,#dbk{cursor: pointer;}
 
-.msg{font-size:1.2em; color:#df9d22; text-shadow: black 1px 1px 1px; }
+.msg{font-size:1.2em; color:#df9d22; text-shadow: black 1px 1px 1px; border:none;}

@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>管理系統</title>
 <link rel="stylesheet" type="text/css" href="/mylibrary/css/base.css">
-
 </head>
 <body>
 	<div class="wrapper">

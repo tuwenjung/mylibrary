@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <context-param>
   	<param-name>photodir</param-name>
   	<param-value>E:\\My Pictures\\bookphoto\\</param-value>
@@ -17,8 +18,14 @@
   	<param-name>personphoto</param-name>
   	<param-value>\\mylibrary\\personphoto\\</param-value>
   </context-param>
+  
+  <context-param>
+  	<param-name>admin_key</param-name>
+  	<param-value>spring</param-value>
+  </context-param>
+  
   <session-config>
-  	<session-timeout>10</session-timeout>
+  	<session-timeout>1</session-timeout>
   </session-config>
   <filter>
   	<filter-name>struts2</filter-name>

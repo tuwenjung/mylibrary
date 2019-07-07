@@ -32,41 +32,43 @@
 				</td>
 				<td>編號:</td>
 				<td><input type="text" name="reader.number" id="number"
-					value="${sessionScope.reader.num}"/>
+					value="${reader.number}" required/>
 				</td>
 			</tr>
 			<tr>
 				<td>姓名:</td>
 				<td><input type="text" name="reader.name" id="name"
-					value="${sessionScope.reader.name}" /></td>
+					value="${reader.name}" required/></td>
 				<td>電子信箱:</td>
 				<td><input type="email" name="reader.email" id="email"
-					value="${sessionScope.reader.email}" /></td>
+					value="${reader.email}" required/></td>
 			</tr>
 			<tr>
 				<td>電話:</td>
-				<td><input type="text" name="reader.tel" id="tel"
-					value="${sessionScope.reader.tel}" /></td>
+				<td><input type="tel" name="reader.tel" id="tel"
+					value="${reader.tel}" required/></td>
 				<td>住址:</td>
 				<td><input type="text" name="reader.address" id="address"
-					value="${sessionScope.reader.address}" /></td>
+					value="${reader.address}" /></td>
 			</tr>
 			<tr>
 				<td>性別:</td>
 				<td>
 					<input type="radio" name="reader.gender" id="gender"
-					value="${sessionScope.reader.gender}" />男
+					value="y" />男
 					<input type="radio" name="reader.gender" id="gender"
-					value="${sessionScope.reader.gender}" />女
+					value="x" />女
+					<input type="radio" name="reader.gender" id="gender"
+					value="z" checked />很難說
 				</td>
 				<td>生日:</td>
 				<td><input type="date" name="reader.birthday" id="birthday"
-					value="${sessionScope.reader.birthday}" /></td>
+					value="${reader.birthday}" /></td>
 			</tr>
 			<tr>
 				<td>照片:</td>
 				<td><input type="file" name="reader.photo" id="photo" accept="image/*" onchange="setImg(this)"
-							value="${reader.photo}"/>
+							value="${reader.photo}" required/>
 					<div>
 						<img src="\mylibrary\personphoto\my.png" width="150"
 							height="120" id="img" />
@@ -81,11 +83,12 @@
 			</tr>
 			<tr>
 				<td>建立時間:</td>
-				<td>${sessionScope.reader.createtime}</td>
+				<td>${reader.createtime}</td>
 				<td>近期更新時間:</td>
-				<td>${sessionScope.reader.updatetime}</td>
+				<td>${reader.updatetime}</td>
 			</tr>
 			<tr height="20">
+			<td class="msg" >${r_msg}</td>
 			</tr>
 			<tfoot align="right">
 				<tr>

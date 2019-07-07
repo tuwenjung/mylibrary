@@ -1,5 +1,6 @@
 package org.action;
 
+import org.apache.struts2.ServletActionContext;
 import org.dao.Dao;
 import org.dao.ReaderDao;
 import org.module.Reader;
@@ -30,11 +31,12 @@ public class ReaderAction extends ActionSupport {
 	}	
 	
 	public String add() throws Exception {
-		System.out.println("into ReaderAction.add()");
-		System.out.println(reader.getPhoto());
-		Dao<Reader> dao= new ReaderDao();
-		dao.add(reader);
-		//ActionContext.getContext().getSession().put("reader", r);
+		System.out.println("in ReaderAction.add()");
+		if(reader!=null) {
+			Dao<Reader> dao= new ReaderDao();
+			int rs=dao.add(reader);
+			ServletActionContext.getRequest().setAttribute("r_msg", rs==0?"addX":"addV");
+		}
 		return SUCCESS;
 	}
 	

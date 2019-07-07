@@ -35,10 +35,10 @@
         <property name="location" type="java.lang.String">
             <column name="LOCATION" />
         </property>
-        <property name="createtime" type="java.util.Date">
+        <property name="createtime" type="java.util.Date" generated="insert">
             <column name="CREATETIME" />
         </property>
-        <property name="updatetime" type="java.util.Date">
+        <property name="updatetime" type="java.util.Date" generated="always">
         	<column name="UPDATETIME"/>
         </property>
         <property name="status" type="java.lang.String">

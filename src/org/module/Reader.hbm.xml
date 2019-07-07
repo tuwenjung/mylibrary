@@ -38,10 +38,10 @@
   <property generated="never" lazy="false" name="remark" type="java.lang.String">
    <column name="REMARK"/>
   </property>
-  <property generated="never" lazy="false" name="createtime" type="java.util.Date">
+  <property generated="insert" lazy="false" name="createtime" type="java.util.Date">
    <column name="CREATETIME"/>
   </property>
-  <property generated="never" lazy="false" name="updatetime" type="java.util.Date">
+  <property generated="always" lazy="false" name="updatetime" type="java.util.Date">
    <column name="UPDATETIME"/>
   </property>
   <property generated="never" lazy="false" name="status" type="java.lang.String">

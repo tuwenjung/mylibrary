@@ -38,22 +38,19 @@ public class AccountDao implements Dao<Account> {
 	public int add(Account ac) {
 		Connection conn=DBConn.get();
 		String sql = "INSERT INTO account(name,password,role) VALUES(?,?,?)";
-		int rs=0;
+		int rowCount=0;
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1,ac.getName() );
 			ps.setString(2, ac.getPassword());
 			ps.setByte(3, ac.getRole());
-			rs=ps.executeUpdate();
+			rowCount=ps.executeUpdate();
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
 		}
-		return rs;
-		
+		return rowCount;
 	}
-	/* (non-Javadoc)
-	 * @see org.dao.Dao#update(org.module.Account)
-	 */
+	
 	@Override
 	public int update(Account ac) {
 		Connection conn=DBConn.get();
@@ -94,22 +91,22 @@ public class AccountDao implements Dao<Account> {
 	public static void main(String[] args) {
 		Dao<Account> dao=new AccountDao();
 		Account ac;
-		//·s
+		//ï¿½s
 		ac=new Account("candy", "1234",(byte) 1);
 		System.out.println(dao.add(ac));
 		@SuppressWarnings("resource")
 		Scanner sc=new Scanner(System.in);
 		sc.nextLine();
-		//¬d
+		//ï¿½d
 //		ac=dao.get("candy", "1234");
 //		System.out.println(ac.getRole());
 //		sc.nextLine();
-		//§ï
+		//ï¿½ï¿½
 //		ac.setName("John");
 //		System.out.println(dao.update(ac));
 //		System.out.println(dao.get("John","1234").getName());
 //		sc.nextLine();
-		//§R
+		//ï¿½R
 //		System.out.println(dao.del(ac.getId()));
 	}
 	@Override

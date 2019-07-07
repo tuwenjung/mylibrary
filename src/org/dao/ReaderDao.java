@@ -18,9 +18,9 @@ public class ReaderDao implements Dao<Reader>{
 	public boolean check(int id) {
 		Session ses=DBSess.ses();
 		String sql="SELECT 5 FROM reader WHERE id=?";
-		NativeQuery sq=ses.createSQLQuery(sql);
+		NativeQuery<?> sq=ses.createSQLQuery(sql);
 		sq.setParameter(1, id);
-		List list=sq.getResultList();
+		List<?> list=sq.getResultList();
 		BigInteger rs=list.size()>0?(BigInteger) list.get(0):null;
 		return rs==null?false:true;
 
@@ -33,18 +33,19 @@ public class ReaderDao implements Dao<Reader>{
 	}
 
 	@Override
-	public int add(Reader ac) {
+	public int add(Reader r) {
 		
 		Session ses=DBSess.ses();
 		Transaction  tx=ses.beginTransaction();
 		try {
-			ses.save(ac);
+			ses.save(r);
 			tx.commit();
 		}catch(Exception e) {
 			e.printStackTrace();
 			tx.rollback();
+			return 0;
 		}
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -56,6 +57,24 @@ public class ReaderDao implements Dao<Reader>{
 	@Override
 	public int del(int id) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int update(Integer accountId, String number) {
+		Session ses=DBSess.ses();
+		String sql="UPDATE reader SET accountid=? WHERE number=?";
+		NativeQuery<?> query=ses.createSQLQuery(sql);
+		query.setParameter(1, accountId);
+		query.setParameter(2, number);
+		query.addEntity(Reader.class);
+		Transaction tx=ses.beginTransaction();
+		try {
+			int rs=query.executeUpdate();
+			tx.commit();
+			return rs;
+		}catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 		return 0;
 	}
 

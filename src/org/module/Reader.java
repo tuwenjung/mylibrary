@@ -17,6 +17,10 @@ public class Reader {
 	private  Date createtime;
 	private  Date updatetime;
 	private  String status;
+	
+	public Reader() {}
+
+	
 	public Integer getId() {
 		return id;
 	}

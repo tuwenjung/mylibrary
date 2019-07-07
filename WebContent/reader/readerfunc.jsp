@@ -7,9 +7,6 @@
 <title>功能區</title>
 <link type="text/css" rel="stylesheet" href="/mylibrary/css/base.css">
 <script type="text/javascript">
-	window.onload=function(){
-		
-	}
 	function queryrecords(actname){
 		console.log("查詢記錄");
 		console.log("ac:"+"${ac}");
