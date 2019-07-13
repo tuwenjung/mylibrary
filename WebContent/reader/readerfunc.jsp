@@ -8,9 +8,6 @@
 <link type="text/css" rel="stylesheet" href="/mylibrary/css/base.css">
 <script type="text/javascript">
 	function queryrecords(actname){
-		console.log("查詢記錄");
-		console.log("ac:"+"${ac}");
-		console.log("hehe");
 		if("${ac}"==""){
 			window.open("/mylibrary/index.jsp","_parent");
 			return;
@@ -18,7 +15,51 @@
 		document.qrform.action=actname;
 		document.qrform.submit();
 	}
-	
+	function updatereader(){
+		var form=document.forms.readerform;
+		form.action="modifyreaderinfo";
+		document.getElementById('rhead').innerHTML="更新資料";
+		//ajax 把資料抓進來好修改
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		  if (this.readyState == 4 && this.status == 200) {
+			  document.getElementById('rhead').innerHTML="讀者資料更新";
+			  var reader=JSON.parse(this.responseText);
+			  getE('id').value=reader['id'];
+			  getE('id').type="number";
+			  getE('id').readonly=true;
+			  getE('number').value=reader['number'];
+			  getE('name').value=reader['name'];
+			  getE('email').value=reader['email'];
+			  getE('tel').value=reader['tel'];
+			  getE('address').value=reader['address'];
+			  var genders=[getE('x'),getE('y'),getE('z')];
+			  for(var i=0; i<genders.length; i++){
+				  genders[i].checked=false;
+			  }
+alert(reader.gender);
+			  var genders=["x","y","z"];
+			  for(i in genders){
+				  console.log("***********************    "  +i);
+				  console.log("***********************    "  +reader.gender);
+				  if(reader.gender==genders[i]){
+					  getE(genders[i]).checked=true;
+					  break;
+				  }
+			  }	
+			  getE('birthday').value=reader['birthday'];
+			  getE('photo').defaultValue=reader['photo'];
+			  getE('img').src="/mylibrary/personphoto/"+reader['photo'];
+			  getE('remark').value=reader['remark'];
+			  getE('createtime').innerHTML=reader['createtime'];
+			  getE('updatetime').innerHTML=reader['updatetime'];
+		  }
+		};
+		xhttp.open("POST", "getreader", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+	  	xhttp.send("accountid=${ac.id}");
+	}
 </script>
 	
 </head>
@@ -43,7 +84,7 @@
 				</table>
 			</li>
 			<li><a href="/mylibrary/query/query.jsp" target="_parent">預約書籍</a></li>
-			<li><a href="modifyreaderinfo">個資更新</a></li>
+			<li><a href="#" onclick="updatereader()">個資更新</a></li>
 			<li><a href="suggestandcomplain">建議與申訴</a></li>
 			
 		</ul>

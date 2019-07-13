@@ -14,6 +14,7 @@ public interface Dao<T> {
 
 	int del(int id);
 
+
 	
 
 }

@@ -10,7 +10,7 @@ public class DBConn {
 	public static Connection get() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			if (conn == null) {
+			if (conn == null || conn.isClosed()) {
 				String url = "jdbc:mysql://localhost:3306/library";
 				String usr = "root";
 				String pass = "1234567";

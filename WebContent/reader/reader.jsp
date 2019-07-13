@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>讀者專區</title>
 	<link rel="stylesheet" type="text/css" href="/mylibrary/css/base.css">
-	<script type="text/javascript" src="/js/base.js"></script>
+	<script type="text/javascript" src="/mylibrary/js/base.js"></script>
 </head>
 <body>
 	<div class="wrapper">

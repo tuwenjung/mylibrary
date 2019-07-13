@@ -32,9 +32,23 @@ public class ReaderDao implements Dao<Reader>{
 		return ses.load(Reader.class, id);
 	}
 
+	public Reader getByAccountId(int accountid) {
+		Session ses=DBSess.ses();
+		ses.clear();
+		String sql = "SELECT * FROM reader WHERE accountid=?";
+		NativeQuery query=ses.createSQLQuery(sql);
+		query.setParameter(1, accountid);
+		query.addEntity(Reader.class);
+		List list=query.list();
+		if(list.size()>0) {
+			Reader r=(Reader) list.get(0);
+			return r;
+		}
+		return null;
+	}
+	
 	@Override
 	public int add(Reader r) {
-		
 		Session ses=DBSess.ses();
 		Transaction  tx=ses.beginTransaction();
 		try {
@@ -49,9 +63,25 @@ public class ReaderDao implements Dao<Reader>{
 	}
 
 	@Override
-	public int update(Reader ac) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Reader r) {
+		Session ses=DBSess.ses();
+		Transaction tx = null; 	//get vs begin?
+		if(!ses.getTransaction().isActive()) {
+			tx=ses.beginTransaction();
+		}
+		try {
+			ses.update(r);
+			tx.commit();
+		}catch(org.hibernate.NonUniqueObjectException e) {
+			ses.clear();
+			ses.update(r);
+			tx.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
@@ -59,6 +89,7 @@ public class ReaderDao implements Dao<Reader>{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	// for adding account
 	public int update(Integer accountId, String number) {
 		Session ses=DBSess.ses();
 		String sql="UPDATE reader SET accountid=? WHERE number=?";

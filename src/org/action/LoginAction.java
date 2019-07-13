@@ -32,7 +32,6 @@ public class LoginAction extends ActionSupport{
 	}
 	
 	public String add() throws IOException{
-		System.out.println("**********HOHOOJOJOJOJOJOJOJOJOJOJOJOJOJ");
 		AccountDao dao=new AccountDao();
 		byte role=1; // 讀者
 		String key=ServletActionContext.getServletContext().getInitParameter("admin_key").toString();

@@ -64,5 +64,6 @@
 			</tr>
 		</table>
 	</c:if>
+	<p id="msg">${msg}</p>
 </body>
 </html>

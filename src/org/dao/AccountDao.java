@@ -16,6 +16,7 @@ public class AccountDao implements Dao<Account> {
 	
 	public Account get(String name,String password) {
 		Connection conn=DBConn.get();
+		
 		String sql = "SELECT * FROM account WHERE name=? AND password=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
